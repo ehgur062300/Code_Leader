@@ -1,5 +1,7 @@
-package com.example.codeleader.domain.member;
+package com.example.codeleader.domain.tech;
 
+import com.example.codeleader.domain.member.Member;
+import com.example.codeleader.domain.posts.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +19,10 @@ public class Tech {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     private String techName;
 }

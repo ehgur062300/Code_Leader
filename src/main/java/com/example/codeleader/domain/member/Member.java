@@ -4,6 +4,7 @@ import com.example.codeleader.domain.BaseTimeEntity;
 import com.example.codeleader.domain.posts.Post;
 import com.example.codeleader.domain.tech.Tech;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +12,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @NoArgsConstructor
-@Getter
-@Setter
+@Getter @Setter
+@Entity
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -37,4 +37,28 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private List<Post> posts = new ArrayList<>();
+
+    @Builder
+    public Member(String memberName, String password, String nickName, String email, Role role) {
+        this.memberName = memberName;
+        this.password = password;
+        this.nickName = nickName;
+        this.email = email;
+        this.role = role;
+    }
+
+    public Member update(String memberName, String password, String nickName, String email, Role role){
+        this.memberName = memberName;
+        this.password = password;
+        this.nickName = nickName;
+        this.email = email;
+        this.role = role;
+
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
 }
+

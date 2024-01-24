@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter @Setter
@@ -20,9 +23,9 @@ public class Tech {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @OneToMany(mappedBy = "tech", cascade = CascadeType.ALL)
+    private List<PostTech> postTechList = new ArrayList<>();
 
+    @Column(unique = true)
     private String techName;
 }
